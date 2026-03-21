@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roadmap de Sessões — CRM Açaí Gurau</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0d0f12;
+  --surface: #13161b;
+  --surface-2: #1a1e25;
+  --border: #242830;
+  --border-light: #2e3340;
+  --text: #e8eaf0;
+  --text-muted: #6b7280;
+  --text-dim: #9ca3af;
+  --accent: #4f9cf9;
+  --accent-dim: #1d3557;
+  --green: #34d399;
+  --green-dim: #0d2e22;
+  --amber: #fbbf24;
+  --amber-dim: #2d1f07;
+  --red: #f87171;
+  --red-dim: #2d0f0f;
+  --purple: #a78bfa;
+  --purple-dim: #1e1530;
+  --sans: 'Syne', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+/* HEADER */
+.header {
+  padding: 3rem 2rem 2rem;
+  max-width: 860px;
+  margin: 0 auto;
+  border-bottom: 1px solid var(--border);
+}
+.header-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--accent);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+}
+.header-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-bottom: 0.6rem;
+  background: linear-gradient(135deg, var(--text) 0%, var(--text-dim) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.header-sub {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  max-width: 55ch;
+  font-weight: 400;
+}
+.header-meta {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+.meta-pill {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  padding: 4px 10px;
+  border-radius: 4px;
+  background: var(--surface-2);
+  border: 1px solid var(--border-light);
+  color: var(--text-dim);
+}
+.meta-pill span { color: var(--text); font-weight: 500; }
+
+/* PROGRESS BAR */
+.progress-wrap {
+  max-width: 860px;
+  margin: 2rem auto 0;
+  padding: 0 2rem;
+}
+.progress-label {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+}
+.progress-bar {
+  height: 4px;
+  background: var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  width: 28%;
+  background: linear-gradient(90deg, var(--accent), var(--green));
+  border-radius: 4px;
+  transition: width 0.6s ease;
+}
+
+/* MAIN */
+.main {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 2.5rem 2rem 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* PHASE LABEL */
+.phase-label {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 1.5rem 0 0.5rem;
+  border-top: 1px solid var(--border);
+  margin-top: 0.5rem;
+}
+.phase-label:first-child { border-top: none; padding-top: 0; }
+
+/* SESSION CARD */
+.session {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.session:hover { border-color: var(--border-light); }
+
+.session-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.2rem 1.4rem;
+  cursor: pointer;
+  user-select: none;
+}
+.session-num {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  font-weight: 500;
+  min-width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.session-info { flex: 1; }
+.session-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.2rem;
+  letter-spacing: -0.01em;
+}
+.session-desc {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+.session-badge {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  padding: 3px 8px;
+  border-radius: 4px;
+  flex-shrink: 0;
+  margin-top: 3px;
+  font-weight: 500;
+}
+
+/* STATUS COLORS */
+.s-done   .session-num { background: var(--green-dim); color: var(--green); }
+.s-done   .session-badge { background: var(--green-dim); color: var(--green); }
+.s-done   { border-left: 3px solid var(--green); }
+
+.s-next   .session-num { background: var(--accent-dim); color: var(--accent); }
+.s-next   .session-badge { background: var(--accent-dim); color: var(--accent); }
+.s-next   { border-left: 3px solid var(--accent); }
+
+.s-pending .session-num { background: var(--surface-2); color: var(--text-muted); }
+.s-pending .session-badge { background: var(--surface-2); color: var(--text-muted); }
+.s-pending { border-left: 3px solid var(--border); }
+
+/* SESSION BODY */
+.session-body {
+  padding: 0 1.4rem 1.4rem 1.4rem;
+  border-top: 1px solid var(--border);
+  display: none;
+}
+.session.open .session-body { display: block; }
+.session.open .session-header { padding-bottom: 1rem; }
+
+.tasks-title {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 1rem 0 0.6rem;
+}
+
+.task-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.task-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+.task-list li::before {
+  content: '→';
+  font-family: var(--mono);
+  color: var(--border-light);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.task-list li strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.refs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 1rem;
+}
+.ref-tag {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  padding: 2px 7px;
+  border-radius: 3px;
+  background: var(--surface-2);
+  border: 1px solid var(--border-light);
+  color: var(--text-muted);
+}
+
+.note-box {
+  margin-top: 1rem;
+  padding: 0.7rem 1rem;
+  background: var(--amber-dim);
+  border: 1px solid #3d2a08;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  color: var(--amber);
+  line-height: 1.5;
+}
+.note-box.info {
+  background: var(--accent-dim);
+  border-color: #1e3a5f;
+  color: #93c5fd;
+}
+
+/* TOGGLE ARROW */
+.toggle-arrow {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin-top: 5px;
+  flex-shrink: 0;
+  transition: transform 0.2s;
+}
+.session.open .toggle-arrow { transform: rotate(180deg); }
+
+/* FOOTER */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 1.5rem 2rem;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+  max-width: 100%;
+}
+
+@media (max-width: 640px) {
+  .header-title { font-size: 1.6rem; }
+  .session-header { flex-wrap: wrap; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-eyebrow">CRM Açaí Gurau · Monk Studio</div>
+  <h1 class="header-title">Roadmap de Sessões</h1>
+  <p class="header-sub">Guia detalhado de cada sessão de desenvolvimento — tarefas, objetivos e referências para trabalho independente.</p>
+  <div class="header-meta">
+    <div class="meta-pill">Total <span>14 sessões</span></div>
+    <div class="meta-pill">Concluídas <span>4 sessões</span></div>
+    <div class="meta-pill">MVP <span>Semana 4</span></div>
+    <div class="meta-pill">Entrega final <span>Semana 8</span></div>
+  </div>
+</div>
+
+<div class="progress-wrap">
+  <div class="progress-label">
+    <span>Progresso geral</span>
+    <span>4 / 14 sessões — 28%</span>
+  </div>
+  <div class="progress-bar"><div class="progress-fill"></div></div>
+</div>
+
+<div class="main">
+
+  <!-- FASE FUNDAÇÃO -->
+  <div class="phase-label">Fase Fundação — Infraestrutura e Base</div>
+
+  <!-- S1 -->
+  <div class="session s-done">
+    <div class="session-header" onclick="toggle(this)">
+      <div class="session-num">01</div>
+      <div class="session-info">
+        <div class="session-title">Documentação Técnica</div>
+        <div class="session-desc">SRS, ADD e SDD v1.0.0 — base contratual e técnica do projeto</div>
+      </div>
+      <div class="session-badge">✓ Concluída</div>
+      <div class="toggle-arrow">▼</div>
+    </div>
+    <div class="session-body">
+      <div class="tasks-title">O que foi feito</div>
+      <ul class="task-list">
+        <li>SRS-AG-001 v1.0.0 — 21 RFs, 10 RNFs, critérios de aceite Fase 1 e 2</li>
+        <li>ADD-AG-001 v1.0.0 — C4 L1-L3, 4 ADRs, viewpoints de contexto/containers/componentes/implantação</li>
+        <li>SDD-AG-001 v1.0.0 — modelo de dados, contratos de API, fluxos WhatsApp + IA, padrões</li>
+      </ul>
+      <div class="refs">
+        <span class="ref-tag">SRS v1.1.0</span>
+        <span class="ref-tag">ADD v1.1.0</span>
+        <span class="ref-tag">SDD v1.1.0</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- S2 -->
+  <div class="session s-done">
+    <div class="session-header" onclick="toggle(this)">
+      <div class="session-num">02</div>
+      <div class="session-info">
+        <div class="session-title">Setup do Ambiente Docker</div>
+        <div class="session-desc">6 containers orquestrados, Laravel e Vue.js inicializados</div>
+      </div>
+      <div class="session-badge">✓ Concluída</div>
+      <div class="toggle-arrow">▼</div>
+    </div>
+    <div class="session-body">
+      <div class="tasks-title">O que foi feito</div>
+      <ul class="task-list">
+        <li><strong>docker-compose.yml</strong> — nginx, crm-api, crm-worker, mysql, redis, evolution-api</li>
+        <li><strong>Dockerfile</strong> — PHP 8.4 Alpine para crm-api e crm-worker</li>
+        <li><strong>entrypoint.sh</strong> — loop de espera MySQL + migrations + seeders automáticos</li>
+        <li><strong>Laravel 11</strong> criado em crm-api/ + <strong>Vue.js 3 + Vite</strong> em crm-frontend/</li>
+        <li>Bancos separados: crm_acai (Laravel) e evolution_db (Evolution API)</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- S3 -->
+  <div class="session s-done">
+    <div class="session-header" onclick="toggle(this)">
+      <div class="session-num">03</div>
+      <div class="session-info">
+        <div class="session-title">Migrations e Modelo de Dados</div>
+        <div class="session-desc">13 migrations aplicadas, ULID em todas as tabelas</div>
+      </div>
+      <div class="session-badge">✓ Concluída</div>
+      <div class="toggle-arrow">▼</div>
+    </div>
+    <div class="session-body">
+      <div class="tasks-title">O que foi feito</div>
+      <ul class="task-list">
+        <li>Migrations: users, pipeline_stages, tags, contacts, contact_tag, pipeline_items, messages, conversations, ai_sessions, activity_logs</li>
+        <li>ULID como primary key em todas as tabelas</li>
+        <li>Tabela <strong>conversations</strong> adicionada — não estava no SDD original</li>
+        <li><strong>conversation_id</strong> em messages, <strong>user_id</strong> em activity_logs</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- S4 -->
+  <div class="session s-done">
+    <div class="session-header" onclick="toggle(this)">
+      <div class="session-num">04</div>
+      <div class="session-info">
+        <div class="session-title">Models, Seeders e Revisão Documental</div>
+        <div class="session-desc">9 Models Eloquent, PipelineStagesSeeder, documentação v1.1.0</div>
+      </div>
+      <div class="session-badge">✓ Concluída</div>
+      <div class="toggle-arrow">▼</div>
+    </div>
+    <div class="session-body">
+      <div class="tasks-title">O que foi feito</div>
+      <ul class="task-list">
+        <li>Models: User, PipelineStage, Tag, Contact, PipelineItem, Message, Conversation, AiSession, ActivityLog</li>
+        <li>HasUlids, SoftDeletes, casts, helpers e relacionamentos em todos</li>
+        <li>PipelineStagesSeeder com 6 estágios padrão + DatabaseSeeder</li>
+        <li>Documentação revisada: SRS, ADD, SDD e index.html → v1.1.0</li>
+        <li>Novos requisitos formalizados: RF-WA-06, RF-WA-07, RF-WA-08, RF-WA-09</li>
+        <li>ADR-005 (Conversation) e ADR-006 (queue com intervalos aleatórios) registrados</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- FASE MVP -->
+  <div class="phase-label">Fase MVP — Módulos Funcionais</div>
+
+  <!-- S5 -->
+  <div class="session s-next">
+    <div class="session-header" onclick="toggle(this)">
+      <div class="session-num">05</div>
+      <div class="session-info">
+        <div class="session-title">Infraestrutura de Código</div>
+        <div class="session-desc">Repositories, Services, Jobs, Interfaces, DTOs, Factories, Observers</div>
+      </div>
+      <div class="session-badge">→ Próxima</div>
+      <div class="toggle-arrow">▼</div>
+    </div>
+    <div class="session-body">
+      <div class="tasks-title">Tarefas</div>
+      <ul class="task-list">
+        <li><strong>Estrutura de pastas</strong> — criar app/Services/, app/Repositories/, app/Jobs/, app/Integrations/AI/</li>
+        <li><strong>RepositoryInterface</strong> — contrato base com métodos find, findAll, create, update, delete</li>
+        <li><strong>Repositories concretos</strong> — ContactRepository, PipelineItemRepository, MessageRepository, ConversationRepository</li>
+        <li><strong>AIProviderInterface</strong> — métodos complete(), buildPrompt(), estimateTokens() — conforme SDD §5.4</li>
+        <li><strong>DeepSeekProvider</strong> — implementação stub de AIProviderInterface (sem lógica, só estrutura)</li>
+        <li><strong>Binding no AppServiceProvider</strong> — AIProviderInterface::class → DeepSeekProvider::class</li>
+        <li><strong>Jobs stub</strong> — ProcessWhatsAppWebhook, CallAIResponse, ScheduleFirstMessage, SendNotification (classes vazias com handle())</li>
+        <li><strong>Form Requests</strong> — StoreContactRequest, UpdateContactRequest, StorePipelineItemRequest (com regras de validação)</li>
+        <li><strong>API Resources</strong> — ContactResource, MessageResource, PipelineItemResource, ConversationResource</li>
+        <li><strong>Factories</strong> — UserFactory, ContactFactory, PipelineItemFactory, MessageFactory, ConversationFactory (para testes)</li>
+        <li><strong>ContactObserver</strong> — dispara ActivityLog em created, updated, deleted</li>
+        <li><strong>PipelineItemObserver</strong> — dispara ActivityLog em created, updated (especialmente stage_id changed)</li>
+        <li><strong>Registrar Observers</strong> no AppServiceProvider ou EventServiceProvider</li>
+      </ul>
+      <div class="refs">
+        <span class="ref-tag">SDD §2.1 estrutura de pastas</span>
+        <span class="ref-tag">SDD §5.4 AIProviderInterface</span>
+        <span class="ref-tag">SDD §8 padrões Repository, Observer, DTO</span>
+        <span class="ref-tag">SRS RNF-MAN-01 cobertura ≥60%</span>
+      </div>
+      <div class="note-box info">Essa sessão não entrega funcionalidade visível — entrega a fundação que torna todas as próximas sessões mais rápidas e testáveis. Não pule.</div>
+    </div>
+  </div>
+
+  <!-- S6 -->
+  <div class="session s-pending">
+    <div class="session-header" onclick="toggle(this)">
+      <div class="session-num">06</div>
+      <div class="session-info">
+        <div class="session-title">AuthModule</div>
+        <div class="session-desc">JWT, roles, middleware, guards, refresh token</div>
+      </div>
+      <div class="session-badge">Pendente</div>
+      <div class="toggle-arrow">▼</div>
+    </div>
+    <div class="session-body">
+      <div class="tasks-title">Tarefas</div>
+      <ul class="task-list">
+        <li><strong>Instalar</strong> tymon/jwt-auth ou Laravel Sanctum com JWT — definir pacote</li>
+        <li><strong>AuthController</strong> — login(), logout(), refresh() com JWT access + refresh token</li>
+        <li><strong>Rotas</strong> — POST /api/v1/auth/login, /refresh, /logout (sem middleware auth)</li>
+        <li><strong>Middleware de role</strong> — CheckRole middleware verificando $user->role contra roles permitidos na rota</li>
+        <li><strong>Guards no AppServiceProvider</strong> — Gates para admin, agent, viewer</li>
+        <li><strong>Expiração de sessão</strong> — 8h conforme RF-AUTH-03</li>
+        <li><strong>HttpOnly cookie</strong> no frontend para armazenar tokens conforme SDD §7</li>
+        <li><strong>Heartbeat de presença</strong> — endpoint PATCH /api/v1/auth/heartbeat atualiza users.is_online e last_seen_at (chamado a cada 30s pelo frontend)</li>
+        <li><strong>Testes unitários</strong> — login com credenciais válidas/inválidas, expiração, acesso por role</li>
+      </ul>
+      <div class="refs">
+        <span class="ref-tag">RF-AUTH-01</span>
+        <span class="ref-tag">RF-AUTH-02</span>
+        <span class="ref-tag">RF-AUTH-03</span>
+        <span class="ref-tag">SDD §7 segurança</span>
+        <span class="ref-tag">ADD §6 AuthModule</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- S7 -->
+  <div class="session s-pending">
+    <div class="session-header" onclick="toggle(this)">
+      <div class="session-num">07</div>
+      <div class="session-info">
+        <div class="session-title">ContactModule</div>
+        <div class="session-desc">CRUD de contatos, tags, segmentação, importação CSV</div>
+      </div>
+      <div class="session-badge">Pendente</div>
+      <div class="toggle-arrow">▼</div>
+    </div>
+    <div class="session-body">
+      <div class="tasks-title">Tarefas</div>
+      <ul class="task-list">
+        <li><strong>ContactController</strong> — index(), store(), show(), update(), destroy() usando ContactRepository</li>
+        <li><strong>Rotas</strong> — GET/POST /contacts, GET/PATCH/DELETE /contacts/{id}, POST /contacts/import</li>
+        <li><strong>Filtros no index()</strong> — por segment, tag, stage_id, search (company_name ou phone_whatsapp)</li>
+        <li><strong>Paginação</strong> — 20 itens por página, cursor pagination para performance</li>
+        <li><strong>Tags</strong> — endpoint para sincronizar tags do contato (sync via BelongsToMany)</li>
+        <li><strong>Importação CSV</strong> — validar colunas obrigatórias, upsert por phone_whatsapp, retornar relatório de erros</li>
+        <li><strong>Soft delete</strong> — DELETE arquiva, não remove; endpoint de restauração opcional</li>
+        <li><strong>ActivityLog automático</strong> via ContactObserver já registrado na S5</li>
+        <li><strong>ContactResource</strong> — retornar dados completos incluindo tags, assigned_user, pipeline_stage</li>
+        <li><strong>Testes unitários</strong> — CRUD, filtros, importação com CSV válido e inválido</li>
+      </ul>
+      <div class="refs">
+        <span class="ref-tag">RF-CRM-01</span>
+        <span class="ref-tag">RF-CRM-02</span>
+        <span class="ref-tag">RF-CRM-03</span>
+        <span class="ref-tag">RF-CRM-04</span>
+        <span class="ref-tag">RF-CRM-05</span>
+        <span class="ref-tag">SDD §4.2</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- S8 -->
+  <div class="session s-pending">
+    <div class="session-header" onclick="toggle(this)">
+      <div class="session-num">08</div>
+      <div class="session-info">
+        <div class="session-title">PipelineModule</div>
+        <div class="session-desc">Kanban, estágios, drag-and-drop, notificações de inatividade</div>
+      </div>
+      <div class="session-badge">Pendente</div>
+      <div class="toggle-arrow">▼</div>
+    </div>
+    <div class="session-body">
+      <div class="tasks-title">Tarefas</div>
+      <ul class="task-list">
+        <li><strong>PipelineController</strong> — index() retorna todos os estágios com oportunidades agrupadas (board view)</li>
+        <li><strong>Rotas</strong> — GET /pipeline, POST /pipeline/items, PATCH /pipeline/items/{id}/stage, GET/POST /pipeline/stages</li>
+        <li><strong>Mover estágio</strong> — PATCH /items/{id}/stage atualiza stage_id e last_moved_at, dispara ActivityLog</li>
+        <li><strong>PipelineItemObserver</strong> — já criado na S5, verificar se está disparando ActivityLog corretamente</li>
+        <li><strong>Notificação de inatividade</strong> — comando artisan ou Job agendado que busca pipeline_items com last_moved_at > N dias e dispara notificação interna via NotificationModule</li>
+        <li><strong>N dias configurável</strong> — variável de ambiente ou config no banco</li>
+        <li><strong>Testes unitários</strong> — criação de oportunidade, mudança de estágio, alerta de inatividade</li>
+      </ul>
+      <div class="refs">
+        <span class="ref-tag">RF-PIPE-01</span>
+        <span class="ref-tag">RF-PIPE-02</span>
+        <span class="ref-tag">RF-PIPE-04</span>
+        <span class="ref-tag">SDD §4.4</span>
+        <span class="ref-tag">SDD §3.2 índices</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- S9 -->
+  <div class="session s-pending">
+    <div class="session-header" onclick="toggle(this)">
+      <div class="session-num">09</div>
+      <div class="session-info">
+        <div class="session-title">WhatsAppModule</div>
+        <div class="session-desc">Webhooks, envio, abertura proativa, queue com intervalos, templates</div>
+      </div>
+      <div class="session-badge">Pendente</div>
+      <div class="toggle-arrow">▼</div>
+    </div>
+    <div class="session-body">
+      <div class="tasks-title">Tarefas</div>
+      <ul class="task-list">
+        <li><strong>EvolutionApiClient</strong> — wrapper HTTP para a Evolution API (enviar mensagem, verificar sessão)</li>
+        <li><strong>Webhook endpoint</strong> — POST /webhooks/whatsapp com validação HMAC-SHA256</li>
+        <li><strong>ProcessWhatsAppWebhook Job</strong> — lookup por phone_whatsapp, cria contato se não existe, salva Message, broadcast Redis, verifica AiSession</li>
+        <li><strong>Envio de mensagem</strong> — POST /contacts/{id}/messages chama EvolutionApiClient e salva Message (direction: out)</li>
+        <li><strong>Abertura proativa</strong> — POST /contacts/{id}/conversations cria Conversation + AiSession + agenda ScheduleFirstMessage</li>
+        <li><strong>Cálculo de horário</strong> — dentro do horário comercial? Agora + 20min. Fora? Próximo dia útil 9h</li>
+        <li><strong>Queue com offset aleatório</strong> — em lote, acumular rand(30,90)s entre contatos (ADR-006)</li>
+        <li><strong>ScheduleFirstMessage Job</strong> — verifica AiSession ativa, busca template, chama AIModule, envia via EvolutionApiClient</li>
+        <li><strong>Cancelar disparo</strong> — DELETE /contacts/{id}/scheduled/{jobId} remove job da fila Redis</li>
+        <li><strong>TemplateModule</strong> — CRUD de templates em /settings/templates (role: admin para escrita)</li>
+        <li><strong>Testes unitários</strong> — recebimento de webhook, criação de lead automático, validação HMAC</li>
+      </ul>
+      <div class="refs">
+        <span class="ref-tag">RF-WA-01</span>
+        <span class="ref-tag">RF-WA-02</span>
+        <span class="ref-tag">RF-WA-03</span>
+        <span class="ref-tag">RF-WA-06</span>
+        <span class="ref-tag">RF-WA-07</span>
+        <span class="ref-tag">RF-WA-08</span>
+        <span class="ref-tag">SDD §5.1</span>
+        <span class="ref-tag">SDD §5.3</span>
+        <span class="ref-tag">ADD ADR-006</span>
+      </div>
+      <div class="note-box">Sessão mais complexa do MVP. Reserve tempo extra. O fluxo de abertura proativa tem muitas peças — teste cada etapa separadamente antes de integrar.</div>
+    </div>
+  </div>
+
+  <!-- S10 -->
+  <div class="session s-pending">
+    <div class="session-header" onclick="toggle(this)">
+      <div class="session-num">10</div>
+      <div class="session-info">
+        <div class="session-title">AIModule</div>
+        <div class="session-desc">DeepSeek, contexto de conversa, handoff, AIProviderInterface completa</div>
+      </div>
+      <div class="session-badge">Pendente</div>
+      <div class="toggle-arrow">▼</div>
+    </div>
+    <div class="session-body">
+      <div class="tasks-title">Tarefas</div>
+      <ul class="task-list">
+        <li><strong>DeepSeekProvider completo</strong> — implementar complete(), buildPrompt(), estimateTokens() chamando a API DeepSeek</li>
+        <li><strong>buildPrompt()</strong> — montar array de mensagens com system prompt (segmento do contato + comportamento) + histórico das últimas N mensagens</li>
+        <li><strong>System prompt base</strong> — definir tom, restrições, objetivo comercial da Açaí Gurau (configurável via .env ou banco)</li>
+        <li><strong>CallAIResponse Job</strong> — busca AiSession, monta prompt, chama DeepSeekProvider, salva Message (ai_generated: true), envia via EvolutionApiClient, atualiza context_json e token_count</li>
+        <li><strong>Detecção de intenção de compra</strong> — RF-IA-02: identificar palavras-chave ou usar IA para classificar intenção e disparar notificação ao agente</li>
+        <li><strong>Handoff</strong> — POST /contacts/{id}/ai/pause atualiza AiSession.status = paused; POST /ai/resume ativa novamente</li>
+        <li><strong>Limite de contexto</strong> — controlar token_count e truncar histórico quando necessário para não exceder limite do modelo</li>
+        <li><strong>LGPD</strong> — garantir que CNPJ e dados pessoais não estão no prompt (conforme SDD §7)</li>
+        <li><strong>Testes unitários</strong> — buildPrompt com diferentes segmentos, handoff pause/resume, estimativa de tokens</li>
+      </ul>
+      <div class="refs">
+        <span class="ref-tag">RF-IA-01</span>
+        <span class="ref-tag">RF-IA-02</span>
+        <span class="ref-tag">RF-IA-03</span>
+        <span class="ref-tag">SDD §5.1</span>
+        <span class="ref-tag">SDD §5.2</span>
+        <span class="ref-tag">SDD §5.4</span>
+        <span class="ref-tag">RNF-PER-03 &lt;5s</span>
+        <span class="ref-tag">ADD ADR-003</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- S11 -->
+  <div class="session s-pending">
+    <div class="session-header" onclick="toggle(this)">
+      <div class="session-num">11</div>
+      <div class="session-info">
+        <div class="session-title">Frontend Vue.js</div>
+        <div class="session-desc">Views, stores Pinia, roteamento, guards, tempo real com Laravel Echo</div>
+      </div>
+      <div class="session-badge">Pendente</div>
+      <div class="toggle-arrow">▼</div>
+    </div>
+    <div class="session-body">
+      <div class="tasks-title">Tarefas</div>
+      <ul class="task-list">
+        <li><strong>Vue Router</strong> — rotas conforme SDD §6.1 com guards de role (beforeEach verificando auth.store.role)</li>
+        <li><strong>auth.store</strong> — login, logout, refresh automático, persistência do token em HttpOnly cookie</li>
+        <li><strong>contacts.store</strong> — listagem paginada, filtros, contato selecionado, CRUD</li>
+        <li><strong>chat.store</strong> — mensagens do contato ativo, envio, status da IA, fila de envio otimista</li>
+        <li><strong>pipeline.store</strong> — estágios + oportunidades, drag-and-drop (usar @vueuse/gesture ou vue-draggable)</li>
+        <li><strong>scheduled.store</strong> — lista de disparos agendados, cancelamento</li>
+        <li><strong>notifications.store</strong> — notificações internas não lidas</li>
+        <li><strong>Laravel Echo + Redis</strong> — instalar laravel-echo e pusher-js, conectar ao canal private-contact.{id}, atualizar chat.store em tempo real</li>
+        <li><strong>Heartbeat</strong> — chamar PATCH /auth/heartbeat a cada 30s enquanto logado</li>
+        <li><strong>Views principais</strong> — Login, ContactList, ContactDetail+Chat, PipelineKanban, Settings/Templates</li>
+        <li><strong>Responsividade</strong> — breakpoint 768px+ conforme RNF-USA-01</li>
+      </ul>
+      <div class="refs">
+        <span class="ref-tag">SDD §6.1 roteamento</span>
+        <span class="ref-tag">SDD §6.2 tempo real</span>
+        <span class="ref-tag">SDD §6.3 stores</span>
+        <span class="ref-tag">RNF-USA-01</span>
+        <span class="ref-tag">RNF-PER-02 &lt;2s</span>
+      </div>
+      <div class="note-box info">Instalar: npm install laravel-echo pusher-js @vueuse/core. Configurar BROADCAST_DRIVER=redis no .env do Laravel.</div>
+    </div>
+  </div>
+
+  <!-- S12 -->
+  <div class="session s-pending">
+    <div class="session-header" onclick="toggle(this)">
+      <div class="session-num">12</div>
+      <div class="session-info">
+        <div class="session-title">Testes Unitários</div>
+        <div class="session-desc">Cobertura ≥ 60% nos módulos críticos — RNF-MAN-01</div>
+      </div>
+      <div class="session-badge">Pendente</div>
+      <div class="toggle-arrow">▼</div>
+    </div>
+    <div class="session-body">
+      <div class="tasks-title">Tarefas</div>
+      <ul class="task-list">
+        <li><strong>Configurar PHPUnit</strong> — banco de dados em memória (SQLite) para testes, factories já criadas na S5</li>
+        <li><strong>AuthModule tests</strong> — login válido/inválido, expiração, acesso por role, refresh token</li>
+        <li><strong>ContactModule tests</strong> — CRUD, filtros, importação CSV válida e inválida, soft delete</li>
+        <li><strong>PipelineModule tests</strong> — criação de oportunidade, mudança de estágio, ActivityLog disparado, alerta de inatividade</li>
+        <li><strong>WhatsAppModule tests</strong> — validação HMAC, criação automática de lead, envio de mensagem</li>
+        <li><strong>AIModule tests</strong> — buildPrompt com diferentes segmentos, handoff pause/resume, dados LGPD fora do prompt</li>
+        <li><strong>Medir cobertura</strong> — php artisan test --coverage, garantir ≥ 60% nos módulos acima</li>
+      </ul>
+      <div class="refs">
+        <span class="ref-tag">RNF-MAN-01 ≥60%</span>
+        <span class="ref-tag">SRS §7.2 critérios Fase 2</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- S13 -->
+  <div class="session s-pending">
+    <div class="session-header" onclick="toggle(this)">
+      <div class="session-num">13</div>
+      <div class="session-info">
+        <div class="session-title">Deploy em Produção</div>
+        <div class="session-desc">Hetzner CX31, Certbot, Cloudflare, variáveis de ambiente, monitoramento</div>
+      </div>
+      <div class="session-badge">Pendente</div>
+      <div class="toggle-arrow">▼</div>
+    </div>
+    <div class="session-body">
+      <div class="tasks-title">Tarefas</div>
+      <ul class="task-list">
+        <li><strong>Provisionar VPS</strong> — Hetzner CX31, Ubuntu 24.04, instalar Docker + Docker Compose</li>
+        <li><strong>Configurar DNS</strong> — Cloudflare apontando para IP do VPS, proxy ativo</li>
+        <li><strong>SSL</strong> — Certbot + Let's Encrypt, renovação automática via cron</li>
+        <li><strong>Variáveis de ambiente</strong> — .env de produção com todas as chaves (DeepSeek, Evolution API, JWT secret, HMAC secret)</li>
+        <li><strong>Build do frontend</strong> — npm run build, copiar dist/ para volume do nginx</li>
+        <li><strong>docker compose up -d</strong> — verificar todos os containers healthy</li>
+        <li><strong>Backup automático</strong> — ativar Hetzner Backup (snapshots diários, retenção 7 dias)</li>
+        <li><strong>Verificar RNFs</strong> — performance (p95 &lt;300ms), disponibilidade, HTTPS, bcrypt, LGPD</li>
+        <li><strong>Sessão de treinamento</strong> — mín. 2h com o time da Açaí Gurau (critério de aceite Fase 2)</li>
+      </ul>
+      <div class="refs">
+        <span class="ref-tag">ADD §7.1 infraestrutura</span>
+        <span class="ref-tag">ADD §7.2 Docker Compose</span>
+        <span class="ref-tag">RNF-SEG-01 HTTPS</span>
+        <span class="ref-tag">RNF-DIS-01 99% uptime</span>
+        <span class="ref-tag">SRS §7.2 critérios Fase 2</span>
+      </div>
+      <div class="note-box">Nunca commitar o .env de produção no repositório. Usar secrets do servidor ou variáveis do CI/CD.</div>
+    </div>
+  </div>
+
+  <!-- FASE 2 -->
+  <div class="phase-label">Fase 2 — Funcionalidades Avançadas</div>
+
+  <!-- S14 -->
+  <div class="session s-pending">
+    <div class="session-header" onclick="toggle(this)">
+      <div class="session-num">14</div>
+      <div class="session-info">
+        <div class="session-title">Fase 2 — Funcionalidades Avançadas</div>
+        <div class="session-desc">RAG, multi-sessão WhatsApp, pipeline customizável, broadcast, relatórios</div>
+      </div>
+      <div class="session-badge">Pendente</div>
+      <div class="toggle-arrow">▼</div>
+    </div>
+    <div class="session-body">
+      <div class="tasks-title">Tarefas</div>
+      <ul class="task-list">
+        <li><strong>RAG (RF-IA-04)</strong> — implementar busca semântica no histórico de conversas anteriores, injetar contexto relevante no prompt de nova sessão</li>
+        <li><strong>Multi-sessão WhatsApp (RF-WA-04)</strong> — suporte a múltiplos números simultâneos na Evolution API, seleção de sessão no envio</li>
+        <li><strong>Pipeline customizável (RF-PIPE-03)</strong> — CRUD de estágios, reordenação por drag-and-drop, POST /pipeline/stages</li>
+        <li><strong>Automação de estágios (RF-PIPE-05)</strong> — regras baseadas em eventos (ex: mensagem recebida → avança para Contato Realizado)</li>
+        <li><strong>Broadcast (RF-WA-09)</strong> — seleção de segmento, disparo em massa com queue e rate limit, relatório de entrega</li>
+        <li><strong>Dashboard e KPIs (RF-REL-01)</strong> — total de leads, taxa de conversão, mensagens, oportunidades por estágio</li>
+        <li><strong>Relatório de funil (RF-REL-02)</strong> — taxa de avanço entre estágios</li>
+        <li><strong>Filtros por período (RF-REL-03)</strong> — 7d, 30d, 90d, personalizado</li>
+        <li><strong>Configuração de bot por segmento (RF-IA-05)</strong> — comportamento diferente para distribuidor, revenda, PDV</li>
+      </ul>
+      <div class="refs">
+        <span class="ref-tag">RF-IA-04 RAG</span>
+        <span class="ref-tag">RF-WA-04</span>
+        <span class="ref-tag">RF-WA-09</span>
+        <span class="ref-tag">RF-PIPE-03</span>
+        <span class="ref-tag">RF-PIPE-05</span>
+        <span class="ref-tag">RF-REL-01</span>
+        <span class="ref-tag">RF-REL-02</span>
+        <span class="ref-tag">RF-REL-03</span>
+        <span class="ref-tag">RF-IA-05</span>
+      </div>
+      <div class="note-box info">Essa sessão pode ser quebrada em múltiplas sessões menores conforme o tempo disponível após o MVP.</div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <span>CRM Açaí Gurau · Roadmap v1.1.0 · 21/03/2026</span>
+  <span>Matheus Fernandes Cunha — Monk Studio</span>
+</footer>
+
+<script>
+function toggle(header) {
+  const session = header.parentElement;
+  session.classList.toggle('open');
+}
+
+// Abrir a próxima sessão por padrão
+document.addEventListener('DOMContentLoaded', () => {
+  const next = document.querySelector('.s-next');
+  if (next) next.classList.add('open');
+});
+</script>
+
+</body>
+</html>
